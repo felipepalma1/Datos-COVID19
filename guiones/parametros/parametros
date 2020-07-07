@@ -1,0 +1,40 @@
+#!/usr/bin/env python3
+
+import sys, getopt, csv
+
+
+def arranque(argv):
+    
+    comuna_invocada = ' '.join(sys.argv[1:])
+    print('Buscando ⟶', comuna_invocada)
+
+    with open('/media/avvka/Sensible/Asagi/COVID-19/Datos-COVID19/output/producto2/2020-07-01-CasosConfirmados.csv', newline="") as archivo:
+        comunas = []
+        
+        lector = csv.reader(archivo)
+        for fila in lector:
+            comuna = [fila[2],fila[4], fila[5]]
+            comunas.append(comuna)
+            # imprimirComunas(comunas)
+        
+        buscarComuna(comuna_invocada)
+
+def imprimirComunas(comunas):
+        for comuna in comunas:
+            print('--------------------------------------\n\n')
+            print('Comuna:', comuna[0])
+            print('Población total:', comuna[1])
+            print('Contagios confirmados:', comuna[2])
+            print('\n')
+            print('--------------------------------------\n\n')
+
+def buscarComuna(comuna):
+    
+    # Busca comuna ingresada como parametro desde terminal
+    comunas = set(comunas)
+    if comuna in comunas:
+        print("[✓] ¡Encontrado!")
+    
+
+if __name__ == '__main__':
+    arranque(sys.argv[1:])
